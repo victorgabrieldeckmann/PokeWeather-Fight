@@ -7,9 +7,8 @@ def home():
     return render_template("index.html")
 
 pokemon_api = PokemonAPI('Pikachu')
-pokemon = pokemon_api.get_pokemon('pikachu')
 
-print(pokemon)
+print(pokemon_api.get_pokemon('pikachu'))
 
 if __name__ == "__main__":
 
