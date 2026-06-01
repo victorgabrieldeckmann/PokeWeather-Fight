@@ -1,18 +1,18 @@
 class Pokemon:
-    def __init__(self, name, type, weight, height, health, attack, defense, moves, speed):
+    def __init__(self, name, type, level, weight, height, base_health, base_attack, base_defense, moves, base_speed):
         self.name = name
         self.type = type
         self.weight = weight
         self.height = height
-        self.health = health
-        self.max_health = health
-        self.attack = attack
-        self.defense = defense
+        self.health = base_health + (level * 2)
+        self.max_health = base_health + (level * 2)
+        self.attack = base_attack + level
+        self.defense = base_defense + level
         self.moves = moves
-        self.speed = speed
-        self.heal_potions = {"qnt": 2, "heal_points": 8}
-    
-    def take_damage(self,damage):
+        self.speed = base_speed + level
+        self.heal_potions = {"qnt": 2, "heal_points": 40}
+
+    def take_damage(self, damage):
         if damage >= self.health:
             self.health = 0
             print(f"{self.name} fainted!")
@@ -33,5 +33,9 @@ class Pokemon:
         else:
             print("This pokemon is fainted!")
     
+    def choose_move(self, move_to_use):
+        move = next(
+            (m for m in self.moves if m["name"] == move_to_use), None)
+        return move
     
 

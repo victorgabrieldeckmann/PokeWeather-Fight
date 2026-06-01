@@ -12,7 +12,7 @@ class WeatherApi:
         self.weather_endpoint = weather_endpoint
         self.city = city
 
-    def get_current_weather(self, weather_endpoint, city):
+    def get_current_weather(self):
         response = requests.get(f"{url}/{self.weather_endpoint}.json?key={api_key}&q={self.city}").json()
 
         data = response["current"]["condition"]["text"]
