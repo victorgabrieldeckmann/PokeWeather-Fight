@@ -16,11 +16,18 @@ class Battle:
         )
 
         if checking_pokemons_state == "continue":
-            self.attack_pokemon(
-                attacker,
-                defender,
-                action
+
+            print(
+                f"{attacker.name} used "
+                f"{action.name.capitalize()}"
             )
+
+            action.execute(
+                attacker,
+                defender
+            )
+
+            self.count_turn += 1
 
     def handle_turn(self, pokemon1, pokemon2):
         if not self.order_to_play:
@@ -43,31 +50,9 @@ class Battle:
         else:
             return {"winner" : pokemon2}
 
-    def attack_pokemon(self, pokemon_attacker, pokemon_defender, move_to_use):
-        damage = self.calc_damage(
-            pokemon_attacker,
-            pokemon_defender,
-            move_to_use
-        )
-
-        print(f"{pokemon_attacker.name} used {move_to_use.name.capitalize()}")
-
-        pokemon_defender.take_damage(damage)
-        
-        print(f"{pokemon_defender.name} received  {damage} of damage!")
-        print(f"{pokemon_defender.name} HP: {pokemon_defender.health}/{pokemon_defender.max_health}")
-        self.count_turn += 1
-
     def heal_pokemon(self, pokemon_to_heal):
         pokemon_to_heal.heal_pokemon()
         self.count_turn += 1
-
-    def calc_damage(self, pokemon_attacker, pokemon_defender, move_to_use):
-        damage = round((22 * self.get_move_power(move_to_use) * pokemon_attacker.attack / pokemon_defender.defense) / 50 + 2)
-        return damage
-
-    def get_move_power(self, move_to_use):
-        return int(move_to_use.power)
     
     def print_moves(self, moves):
         print("\n------------------")

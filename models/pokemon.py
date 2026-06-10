@@ -6,10 +6,13 @@ class Pokemon:
         self.height = height
         self.health = base_health + (level * 2)
         self.max_health = base_health + (level * 2)
-        self.attack = base_attack + level
-        self.defense = base_defense + level
+        self.attack_base = base_attack + level
+        self.defense_base = base_defense + level
+        self.speed_base = base_speed + level
+        self.attack = self.attack_base
+        self.defense = self.defense_base
+        self.speed = self.speed_base
         self.moves = moves
-        self.speed = base_speed + level
         self.heal_potions = {"qnt": 2, "heal_points": 40}
 
     def take_damage(self, damage):
@@ -41,4 +44,12 @@ class Pokemon:
             (m for m in self.moves if m.name == move_to_use), None)
         return move
     
+    def change_stat(self, stat_name, amount):
+        current_value = getattr(self, stat_name)
+
+        setattr(
+            self,
+            stat_name,
+            max(1, current_value + amount)
+        )
 
