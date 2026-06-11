@@ -11,7 +11,6 @@ def home():
     return render_template("index.html")
 
 pokemon_api = PokemonAPI('Pikachu')
-weather_api = WeatherApi('current', 'Mexico')
 pokemon_selected = pokemon_api.get_pokemon()
 pikachu = Pokemon(pokemon_selected["name"], pokemon_selected["type"], pokemon_selected["level"] ,pokemon_selected["weight"], pokemon_selected["height"], pokemon_selected["base_health"], pokemon_selected["base_attack"], pokemon_selected["base_defense"], pokemon_selected["moves"], pokemon_selected["base_speed"])
 
@@ -20,7 +19,7 @@ pokemon_selected = pokemon_api.get_pokemon()
 charmander = Pokemon(pokemon_selected["name"], pokemon_selected["type"], pokemon_selected["level"] ,pokemon_selected["weight"], pokemon_selected["height"], pokemon_selected["base_health"], pokemon_selected["base_attack"], pokemon_selected["base_defense"], pokemon_selected["moves"], pokemon_selected["base_speed"])
 
 
-batalha = Battle()
+batalha = Battle("Porto Alegre")
 
 first_pokemon = (
     pikachu
@@ -53,12 +52,8 @@ while batalha.check_battle_status(
     current_attacker = batalha.order_to_play[0]
     current_defender = batalha.order_to_play[1]
 
-    type_api = TypePokemon()
-
-    print(type_api.get_type_effectiveness(current_attacker.type, current_defender.type))
-
     print(f"{current_attacker.name}'s turn")
-    print(batalha.print_moves(current_attacker.moves))
+    batalha.print_moves(current_attacker.moves)
     action = input("Choose a move (or type heal): ").lower()
 
     if action == "heal":

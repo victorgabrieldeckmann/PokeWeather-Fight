@@ -1,7 +1,14 @@
+from services.weather_api import WeatherApi
 class Battle:
-    def __init__(self):
+    def __init__(self, city):
         self.count_turn = 1
         self.order_to_play = []
+        self.weather = WeatherApi().get_current_weather(city)
+
+        print(
+            f"Current weather: "
+            f"{self.weather.capitalize()}"
+        )
 
     def decide_action(self, pokemon1, pokemon2, action):
         if action == "heal":
@@ -24,7 +31,8 @@ class Battle:
 
             action.execute(
                 attacker,
-                defender
+                defender,
+                self.weather
             )
 
             self.count_turn += 1

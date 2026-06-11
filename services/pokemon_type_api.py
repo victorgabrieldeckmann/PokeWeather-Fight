@@ -2,7 +2,30 @@ import requests
 poke_url = "https://pokeapi.co/api/v2/type"
 class TypePokemon:
     def get_type_effectiveness(self, attack_type, defender_type):
-        response_attack = requests.get(f"{poke_url}/{attack_type}").json()
-        response_defender = requests.get(f"{poke_url}/{defender_type}").json()
+        response = requests.get(f"{poke_url}/{attack_type}").json()
         
-        return response_attack,response_defender
+        response_double_damage_to = []
+        response_half_damage_to = []
+        response_no_damage_to = []
+
+        for d_damage_to in response["damage_relations"]["double_damage_to"]:
+            response_double_damage_to.append(d_damage_to["name"])
+
+        for h_damage_to in response["damage_relations"]["half_damage_to"]:
+            response_half_damage_to.append(h_damage_to["name"])
+
+        for no_damage_to in response["damage_relations"]["no_damage_to"]:
+            response_no_damage_to.append(no_damage_to["name"])
+
+        defender_type = defender_type.lower()
+
+        if defender_type in response_no_damage_to:
+            return 0
+
+        if defender_type in response_double_damage_to:
+            return 2
+
+        if defender_type in response_half_damage_to:
+            return 0.5
+
+        return 1

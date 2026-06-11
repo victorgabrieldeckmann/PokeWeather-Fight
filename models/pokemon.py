@@ -24,13 +24,11 @@ class Pokemon:
         
     def heal_pokemon(self):
         if self.health > 0 and self.heal_potions["qnt"] > 0 and (self.health + self.heal_potions["heal_points"]) > self.max_health:
-            print("Primeiro caso")
             self.health = self.max_health
             self.heal_potions["qnt"] -= 1
             print(f"{self.name} healed {self.heal_potions["heal_points"]} points of health!")
             print(f"{self.name} is with full health!")
         elif self.health > 0 and self.heal_potions["qnt"] > 0 and self.health < self.max_health:
-            print("Segundo caso")
             self.health += self.heal_potions["heal_points"]
             self.heal_potions["qnt"] -= 1
             print(f"{self.name} healed {self.heal_potions["heal_points"]} points of health!")
@@ -54,9 +52,12 @@ class Pokemon:
 
         new_value = current_value + amount
 
+        min_stat = int(base_stat * 0.5)
+        max_stat = int(base_stat * 1.6)
+
         new_value = max(
-            1,
-            min(base_stat * 2, new_value)
+            min_stat,
+            min(max_stat, new_value)
         )
 
         setattr(
