@@ -66,6 +66,7 @@ class Battle:
         print("\n------------------")
         print("List of moves:")
         for m in moves:
-            print(f"{m.name.capitalize()} - Power: {m.power} Type: {m.type}")
-
+            print(f"{m.id} - {m.name.capitalize()} - Power: {m.power} Type: {m.type}")
+            
+        print(f"0 - Heal")
         print("------------------")

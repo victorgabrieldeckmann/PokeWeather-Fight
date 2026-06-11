@@ -54,16 +54,16 @@ while batalha.check_battle_status(
 
     print(f"{current_attacker.name}'s turn")
     batalha.print_moves(current_attacker.moves)
-    action = input("Choose a move (or type heal): ").lower()
+    move_id = int(input("Choose a move: "))
 
-    if action == "heal":
+    if move_id == 0:
         batalha.decide_action(
             current_attacker,
             current_defender,
             "heal"
         )
     else:
-        move = current_attacker.choose_move(action)
+        move = current_attacker.choose_move(move_id)
 
         if move:
             batalha.decide_action(

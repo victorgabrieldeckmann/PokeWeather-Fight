@@ -1,7 +1,8 @@
 from services.weather_api import WeatherApi
 from services.pokemon_type_api import TypePokemon
 class Move:
-    def __init__(self, name, power, type, category, target, stat_changes):
+    def __init__(self, move_id, name, power, type, category, target, stat_changes):
+        self.id = move_id
         self.name = name
         self.power = power
         self.type = type

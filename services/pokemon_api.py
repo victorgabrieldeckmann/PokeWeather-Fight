@@ -55,9 +55,10 @@ class PokemonAPI:
     
     def create_moves(self, moves_api):
         moves = []
-        for move_data in moves_api:
+        for index, move_data in enumerate(moves_api, start = 1):
             if move_data["category"] == "status":
                 move = StatusMove(
+                    index,
                     move_data["name"],
                     move_data["power"],
                     move_data["type"].capitalize(),
@@ -67,6 +68,7 @@ class PokemonAPI:
                 )
             else:
                 move = DamageMove(
+                    index,
                     move_data["name"],
                     move_data["power"],
                     move_data["type"].capitalize(),

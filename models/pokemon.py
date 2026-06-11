@@ -23,24 +23,50 @@ class Pokemon:
             self.health -= damage
         
     def heal_pokemon(self):
-        if self.health > 0 and self.heal_potions["qnt"] > 0 and (self.health + self.heal_potions["heal_points"]) > self.max_health:
+        if self.health == self.max_health:
+            print(f"{self.name} already has full health!")
+            return
+
+        if (
+            self.health > 0
+            and self.heal_potions["qnt"] > 0
+            and (self.health + self.heal_potions["heal_points"]) > self.max_health
+        ):
             self.health = self.max_health
             self.heal_potions["qnt"] -= 1
-            print(f"{self.name} healed {self.heal_potions["heal_points"]} points of health!")
-            print(f"{self.name} is with full health!")
-        elif self.health > 0 and self.heal_potions["qnt"] > 0 and self.health < self.max_health:
+
+            print(
+                f"{self.name} healed "
+                f"{self.heal_potions['heal_points']} "
+                f"points of health!"
+            )
+
+            print(
+                f"{self.name} is with full health!"
+            )
+
+        elif (
+            self.health > 0
+            and self.heal_potions["qnt"] > 0
+            and self.health < self.max_health
+        ):
             self.health += self.heal_potions["heal_points"]
             self.heal_potions["qnt"] -= 1
-            print(f"{self.name} healed {self.heal_potions["heal_points"]} points of health!")
+
+            print(
+                f"{self.name} healed "
+                f"{self.heal_potions['heal_points']} "
+                f"points of health!"
+            )
+
         elif self.health > 0 and self.heal_potions["qnt"] == 0:
             print("You don't have more healing potions!")
+
         else:
             print("This pokemon is fainted!")
     
-    def choose_move(self, move_to_use):
-        move = next(
-            (m for m in self.moves if m.name == move_to_use), None)
-        return move
+    def choose_move(self, move_id):
+        return next((move for move in self.moves if move.id == move_id), None)
     
     def change_stat(self, stat_name, amount):
         current_value = getattr(self, stat_name)
