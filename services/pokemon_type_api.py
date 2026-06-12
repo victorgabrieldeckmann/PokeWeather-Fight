@@ -1,6 +1,6 @@
 import requests
 poke_url = "https://pokeapi.co/api/v2/type"
-class TypePokemon:
+class PokemonTypeApi:
     def get_type_effectiveness(self, attack_type, defender_type):
         response = requests.get(f"{poke_url}/{attack_type}").json()
         

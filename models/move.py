@@ -1,5 +1,5 @@
 from services.weather_api import WeatherApi
-from services.pokemon_type_api import TypePokemon
+from services.pokemon_type_api import PokemonTypeApi
 class Move:
     def __init__(self, move_id, name, power, type, category, target, stat_changes):
         self.id = move_id
@@ -15,11 +15,11 @@ class Move:
 
 class DamageMove(Move):
     def execute(self, attacker, defender, weather):
-        type_multiplier = TypePokemon().get_type_effectiveness(self.type, defender.type)
+        type_multiplier = PokemonTypeApi().get_type_effectiveness(self.type, defender.type)
         
         weather_multiplier = (WeatherApi().get_weather_multiplier(self.type, weather))
         
-        damage = self.calculate_damage(attacker, defender) * type_multiplier * weather_multiplier
+        damage = round(self.calculate_damage(attacker, defender) * type_multiplier * weather_multiplier)
 
         defender.take_damage(damage)
 
